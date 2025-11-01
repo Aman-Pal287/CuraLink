@@ -7,7 +7,11 @@ const trialSchema = new mongoose.Schema({
   location: String,
   contactEmail: String,
   description: String,
-  criteria: String,
+  criteria: {
+    age: { type: String },
+    gender: { type: String },
+    medicalHistory: [{ type: String }],
+  },
   aiSummary: String,
   tags: [{ type: String }],
   createdAt: { type: Date, default: Date.now },

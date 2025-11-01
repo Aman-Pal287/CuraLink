@@ -22,6 +22,9 @@ exports.register = async (req, res) => {
     const token = jwt.sign({ id: user._id, role: user.role }, JWT_SECRET, {
       expiresIn: "7d",
     });
+
+    res.cookie("token", token);
+
     res.json({
       token,
       user: {
@@ -49,6 +52,9 @@ exports.login = async (req, res) => {
     const token = jwt.sign({ id: user._id, role: user.role }, JWT_SECRET, {
       expiresIn: "7d",
     });
+
+    res.cookie("token", token);
+
     res.json({
       token,
       user: {
