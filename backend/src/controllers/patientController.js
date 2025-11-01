@@ -1,21 +1,27 @@
 const PatientProfile = require("../models/PatientProfile");
 const User = require("../models/User");
+const { extractTags } = require("../services/aiService");
 
 exports.createOrUpdateProfile = async (req, res) => {
   try {
     const userId = req.user.id;
-    const { rawInput, location, conditions } = req.body;
+    const { rawInput, location } = req.body;
+
+    // AI Tag Extraction from patient input
+    const conditions = await extractTags(rawInput);
 
     let profile = await PatientProfile.findOne({ userId });
+
     if (profile) {
       profile.rawInput = rawInput || profile.rawInput;
       profile.location = location || profile.location;
-      profile.conditions = conditions || profile.conditions;
+      if (conditions.length > 0) profile.conditions = conditions;
       await profile.save();
     } else {
       profile = new PatientProfile({ userId, rawInput, location, conditions });
       await profile.save();
     }
+
     res.json(profile);
   } catch (err) {
     console.error(err);

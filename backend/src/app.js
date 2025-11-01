@@ -7,6 +7,7 @@ const researcherRoutes = require("./routes/researcherRoutes");
 const trialRoutes = require("./routes/trialRoutes");
 const cookieParser = require("cookie-parser");
 const aiRoutes = require("./routes/aiRoutes");
+const publicationRoutes = require("./routes/publicationRoutes");
 
 const app = express();
 app.use(cors());
@@ -19,5 +20,6 @@ app.use("/api/patient", patientRoutes);
 app.use("/api/researcher", researcherRoutes);
 app.use("/api/trials", trialRoutes);
 // app.use("/api/ai", aiRoutes);
+app.use("/api/publications", publicationRoutes);
 
 module.exports = app;
