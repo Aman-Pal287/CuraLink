@@ -1,4 +1,5 @@
 const Trial = require("../models/Trial");
+const { generateAISummary, extractTags } = require("../services/ai.service");
 
 exports.listTrials = async (req, res) => {
   try {
@@ -27,8 +28,12 @@ exports.createTrial = async (req, res) => {
       contactEmail,
       description,
       criteria,
-      tags,
     } = req.body;
+
+    // AI processing
+    const aiSummary = await generateAISummary(description);
+    const tags = await extractTags(description + " " + criteria);
+
     const trial = new Trial({
       title,
       phase,
@@ -37,8 +42,10 @@ exports.createTrial = async (req, res) => {
       contactEmail,
       description,
       criteria,
+      aiSummary,
       tags,
     });
+
     await trial.save();
     res.json(trial);
   } catch (err) {

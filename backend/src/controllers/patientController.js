@@ -1,6 +1,6 @@
 const PatientProfile = require("../models/PatientProfile");
 const User = require("../models/User");
-const { extractTags } = require("../services/aiService");
+const { extractTags } = require("../services/ai.service");
 
 exports.createOrUpdateProfile = async (req, res) => {
   try {

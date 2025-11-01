@@ -1,28 +1,28 @@
 const Publication = require("../models/Publication");
-
+const { generateAISummary, extractTags } = require("../services/ai.service");
 // Create Publication
 exports.createPublication = async (req, res) => {
   try {
-    const { title, authors, source, link, abstract, aiSummary, tags } =
-      req.body;
+    const { title, authors, source, link, abstract } = req.body;
 
-    const publication = await Publication.create({
+    const aiSummary = await generateAISummary(abstract);
+    const tags = await extractTags(abstract);
+
+    const pub = new Publication({
       title,
       authors,
       source,
       link,
       abstract,
-      aiSummary: aiSummary || null,
+      aiSummary,
       tags,
     });
 
-    res.status(201).json({
-      success: true,
-      message: "Publication added successfully",
-      data: publication,
-    });
-  } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
+    await pub.save();
+    res.json(pub);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ msg: "Server error" });
   }
 };
 
