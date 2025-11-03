@@ -5,10 +5,10 @@ const API_BASE =
 
 const api = axios.create({
   baseURL: API_BASE,
-  withCredentials: true, // if you use cookies for JWT
+  withCredentials: true, // important — backend CORS must allow credentials
 });
 
-// Optional: attach auth token if using Bearer in localStorage
+// optional: attach Bearer token if you prefer (localStorage)
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
   if (token) config.headers.Authorization = `Bearer ${token}`;
