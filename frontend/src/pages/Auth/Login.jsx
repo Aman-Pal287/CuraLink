@@ -61,9 +61,9 @@ export default function Login({ onAuth }) {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-primary text-white py-2 rounded"
+            className="w-full bg-blue-400 text-black py-2 rounded"
           >
-            {loading ? "Signing in..." : "Sign in"}df
+            {loading ? "Signing in..." : "Sign in"}
           </button>
         </form>
 

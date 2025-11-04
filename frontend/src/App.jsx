@@ -15,6 +15,9 @@ import ExpertsList from "./pages/Experts/ExpertsList";
 import ExpertProfile from "./pages/Experts/ExpertProfile";
 import Home from "./pages/Home";
 import DashboardLayout from "./layouts/DashboardLayout";
+import PatientOnboarding from "./pages/Onboarding/PatientOnboarding";
+import ResearcherOnboarding from "./pages/Onboarding/ResearcherOnboarding";
+import AddMedicalRecord from "./pages/Patients/AddMedicalRecord";
 
 export default function App() {
   const [checking, setChecking] = useState(true);
@@ -25,6 +28,8 @@ export default function App() {
     const checkSession = async () => {
       try {
         const res = await api.get("/auth/me");
+        console.log(res);
+
         setUser(res.data.user || res.data);
       } catch (err) {
         setUser(null);
@@ -40,7 +45,7 @@ export default function App() {
   return (
     <Routes>
       {/* ✅ Base URL = Home */}
-      <Route path="/" element={<Home />} />
+      <Route path="/" element={<Home user={user} />} />
 
       {/* Public Auth Routes */}
       <Route path="/login" element={<Login onAuth={(u) => setUser(u)} />} />
@@ -57,6 +62,12 @@ export default function App() {
           </ProtectedRoute>
         }
       >
+        <Route path="/onboarding/patient" element={<PatientOnboarding />} />
+        <Route
+          path="/onboarding/researcher"
+          element={<ResearcherOnboarding />}
+        />
+
         <Route path="/dashboard" element={<Dashboard user={user} />} />
         <Route path="/publications" element={<PublicationsList />} />
         <Route path="/publications/new" element={<AddPublication />} />
@@ -65,6 +76,10 @@ export default function App() {
         <Route path="/trials/:id" element={<TrialDetails />} />
         <Route path="/experts" element={<ExpertsList />} />
         <Route path="/experts/:id" element={<ExpertProfile />} />
+        <Route
+          path="/patients/:patientId/add-record"
+          element={<AddMedicalRecord />}
+        />
       </Route>
 
       {/* 404 Fallback */}

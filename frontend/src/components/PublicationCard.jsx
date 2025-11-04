@@ -1,7 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import useFavorites from "../hooks/useFavorites";
 
 export default function PublicationCard({ pub }) {
+  const { toggle, isSaved } = useFavorites();
+  const saved = isSaved("pubs", pub._id);
+
   return (
     <div className="bg-white rounded-lg p-4 shadow border">
       <h3 className="text-lg font-semibold mb-1">{pub.title}</h3>
@@ -26,22 +30,19 @@ export default function PublicationCard({ pub }) {
       </div>
 
       <div className="mt-3 flex items-center justify-between">
-        <Link
-          to={`/publications/${pub._id || pub.id}`}
-          className="text-sm text-primary"
-        >
+        <Link to={`/publications/${pub._id}`} className="text-sm text-blue-600">
           View Details
         </Link>
-        {pub.link && (
-          <a
-            href={pub.link}
-            target="_blank"
-            rel="noreferrer"
-            className="text-sm text-slate-500"
-          >
-            Open
-          </a>
-        )}
+        <button
+          onClick={() => toggle("pubs", pub)}
+          className={`text-sm px-3 py-1 rounded border ${
+            saved
+              ? "bg-blue-600 text-white border-blue-600"
+              : "hover:bg-slate-50"
+          }`}
+        >
+          {saved ? "Saved" : "Save"}
+        </button>
       </div>
     </div>
   );

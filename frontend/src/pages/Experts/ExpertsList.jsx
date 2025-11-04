@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import api from "../../api/api";
 
 export default function ExpertsList() {
@@ -57,9 +58,13 @@ export default function ExpertsList() {
                 <strong>Experience:</strong> {exp.experience} yrs
               </p>
 
-              <button className="px-4 py-2 bg-blue-600 text-white rounded-md">
+              {/* ✅ Link to Profile */}
+              <Link
+                to={`/experts/${exp._id}`}
+                className="inline-block px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+              >
                 View Profile
-              </button>
+              </Link>
             </div>
           ))}
         </div>

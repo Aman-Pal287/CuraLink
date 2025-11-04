@@ -1,10 +1,16 @@
 import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 
-export default function Home() {
+import RoleModal from "../components/RoleModal";
+import { useState } from "react";
+
+export default function Home({ user }) {
+  const [showModal, setShowModal] = useState(false);
   return (
     <div className="min-h-screen bg-white text-slate-800">
       <Navbar />
+
+      <RoleModal open={showModal} onClose={() => setShowModal(false)} />
 
       {/* HERO */}
       <section className="relative overflow-hidden">
@@ -28,21 +34,24 @@ export default function Home() {
             </p>
 
             <div className="mt-6 flex flex-wrap gap-3">
-              <Link
-                to="/register"
+              {/* ✅ Updated Get Started Button → Opens Modal */}
+              <button
+                onClick={() => setShowModal(true)}
                 className="px-5 py-3 rounded bg-blue-600 text-white hover:bg-blue-700"
               >
-                I’m new — Get Started
-              </Link>
+                Get Started
+              </button>
+
               <Link
                 to="/login"
-                className="px-5 py-3 rounded border border-slate-300 hover:bg-slate-50"
+                className="px-5 py-3 rounded border border-slate-300 dark:border-slate-600 hover:bg-slate-50 dark:hover:bg-[#1E293B]"
               >
                 I already have an account
               </Link>
+
               <Link
                 to="/publications"
-                className="px-5 py-3 rounded border border-blue-200 text-blue-700 hover:bg-blue-50"
+                className="px-5 py-3 rounded border border-blue-200 text-blue-700 hover:bg-blue-50 dark:text-blue-400 dark:border-blue-900 dark:hover:bg-blue-900/20"
               >
                 Explore research
               </Link>

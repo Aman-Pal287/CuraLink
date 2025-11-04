@@ -90,7 +90,7 @@ export default function Register({ onAuth }) {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-primary text-white py-2 rounded"
+            className="w-full bg-blue-400 text-black py-2 rounded"
           >
             {loading ? "Creating..." : "Create account"}
           </button>

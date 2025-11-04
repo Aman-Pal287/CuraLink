@@ -1,7 +1,6 @@
-import { useAuthStore } from "../store/useAuthStore";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
-export default function Navbar() {
+export default function Navbar({ user }) {
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
@@ -11,7 +10,6 @@ export default function Navbar() {
         <button
           onClick={() => navigate("/")}
           className="flex items-center gap-2 group"
-          aria-label="MedLink home"
         >
           <div className="h-8 w-8 rounded-md bg-blue-600 grid place-items-center text-white font-bold">
             M
@@ -43,18 +41,41 @@ export default function Navbar() {
         </ul>
 
         <div className="flex items-center gap-3">
-          <Link
-            to="/login"
-            className="text-sm px-3 py-2 rounded hover:bg-slate-100"
-          >
-            Log in
-          </Link>
-          <Link
-            to="/register"
-            className="text-sm px-3 py-2 rounded bg-blue-600 text-white hover:bg-blue-700"
-          >
-            Get started
-          </Link>
+          {user ? (
+            <>
+              <Link
+                to="/dashboard"
+                className="text-sm px-3 py-2 rounded bg-blue-600 text-white hover:bg-blue-700"
+              >
+                Dashboard
+              </Link>
+              <button
+                onClick={() => {
+                  document.cookie =
+                    "token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/;";
+                  window.location.href = "/"; // redirect to home
+                }}
+                className="text-sm px-3 py-2 rounded hover:bg-red-50 text-red-600"
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <Link
+                to="/login"
+                className="text-sm px-3 py-2 rounded hover:bg-slate-100"
+              >
+                Log in
+              </Link>
+              <Link
+                to="/register"
+                className="text-sm px-3 py-2 rounded bg-blue-600 text-white hover:bg-blue-700"
+              >
+                Get started
+              </Link>
+            </>
+          )}
         </div>
       </nav>
     </header>
