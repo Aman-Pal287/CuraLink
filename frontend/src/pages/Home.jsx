@@ -1,25 +1,35 @@
 import { Link } from "react-router-dom";
+import Navbar from "../components/Navbar";
 
-const Home = () => {
+export default function Home() {
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <div className="w-full max-w-3xl p-8 bg-white rounded-lg shadow">
-        <h1 className="text-3xl font-bold">Welcome to CuraLink (Demo)</h1>
-        <p className="mt-4 text-slate-600">
-          Discover trials, publications and health experts — demo dashboard
-          below.
+    <div>
+      <Navbar />
+
+      <div className="flex flex-col items-center justify-center text-center mt-20 px-6">
+        <h1 className="text-4xl font-bold mb-4 text-gray-800">
+          Welcome to MedLink AI
+        </h1>
+        <p className="text-gray-600 max-w-xl">
+          A lightweight medical research platform to explore clinical trials,
+          publications and AI-assisted summaries — all in one place.
         </p>
-        <div className="mt-6 flex gap-4">
+
+        <div className="flex gap-4 mt-8">
           <Link
-            to="/dashboard"
-            className="px-4 py-2 bg-blue-600 text-white rounded"
+            to="/register"
+            className="bg-blue-600 text-white px-5 py-2 rounded hover:bg-blue-700"
           >
-            Go to Dashboard
+            Get Started
+          </Link>
+          <Link
+            to="/publications"
+            className="border border-blue-600 text-blue-600 px-5 py-2 rounded hover:bg-blue-50"
+          >
+            Explore Research
           </Link>
         </div>
       </div>
     </div>
   );
-};
-
-export default Home;
+}

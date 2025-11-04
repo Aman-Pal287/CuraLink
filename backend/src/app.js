@@ -8,6 +8,7 @@ const trialRoutes = require("./routes/trialRoutes");
 const cookieParser = require("cookie-parser");
 const aiRoutes = require("./routes/aiRoutes");
 const publicationRoutes = require("./routes/publicationRoutes");
+const expertRoutes = require("./routes/expertRoutes");
 
 const app = express();
 app.use(
@@ -26,5 +27,6 @@ app.use("/api/researcher", researcherRoutes);
 app.use("/api/trials", trialRoutes);
 // app.use("/api/ai", aiRoutes);
 app.use("/api/publications", publicationRoutes);
+app.use("/api/experts", expertRoutes);
 
 module.exports = app;
