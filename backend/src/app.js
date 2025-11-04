@@ -1,6 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
 const authRoutes = require("./routes/authRoutes");
 const patientRoutes = require("./routes/patientRoutes");
 const researcherRoutes = require("./routes/researcherRoutes");
@@ -19,6 +20,7 @@ app.use(
 );
 app.use(express.json());
 app.use(cookieParser());
+app.use(express.static(path.join(__dirname, "../public")));
 
 // routes
 app.use("/api/auth", authRoutes);
@@ -28,5 +30,9 @@ app.use("/api/trials", trialRoutes);
 // app.use("/api/ai", aiRoutes);
 app.use("/api/publications", publicationRoutes);
 app.use("/api/experts", expertRoutes);
+
+app.get("*name", (req, res) => {
+  res.sendFile(path.join(__dirname, "../public/index.html"));
+});
 
 module.exports = app;
